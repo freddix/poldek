@@ -1,0 +1,22 @@
+diff -aurN poldek-0.30.orig/Makefile.am poldek-0.30/Makefile.am
+--- poldek-0.30.orig/Makefile.am	2012-07-28 16:14:33.207251541 +0200
++++ poldek-0.30/Makefile.am	2012-07-28 16:15:30.652251529 +0200
+@@ -7,7 +7,7 @@
+ TNDB_DIR = @TNDB_DIR@
+ 
+ CLI=cli
+-SUBDIRS   = po doc $(TRURL_DIR) $(TNDB_DIR) sigint vfile conf pkgdir \
++SUBDIRS   = po $(TRURL_DIR) $(TNDB_DIR) sigint vfile conf pkgdir \
+             pm install3 . $(CLI)
+ DIST_SUBDIRS = $(SUBDIRS) python tests
+ 
+@@ -98,9 +98,6 @@
+ 	$(MAKE) -C doc NEWS
+ 	cp doc/NEWS .
+ 
+-conf_sections.c: $(top_srcdir)/doc/poldek.conf.xml $(top_srcdir)/doc/*.xsl
+-	         	 doc/conf-xml2.sh c doc/poldek.conf.xml > $@
+-
+ vfjuggle: 
+ 
+ dist-hook: 
