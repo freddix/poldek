@@ -3,7 +3,7 @@
 Summary:	RPM packages management helper tool
 Name:		poldek
 Version:	0.30
-Release:	0.%{pre}.4
+Release:	0.%{pre}.5
 License:	GPL v2
 Group:		Applications/System
 Source0:	http://carme.pld-linux.org/~cactus/snaps/poldek/%{name}-%{version}%{pre}.tar.xz
