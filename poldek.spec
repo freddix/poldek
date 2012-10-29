@@ -1,4 +1,4 @@
-%define 	pre	rc5
+%define 	pre	rc6
 
 Summary:	RPM packages management helper tool
 Name:		poldek
@@ -6,13 +6,12 @@ Version:	0.30
 Release:	0.%{pre}.5
 License:	GPL v2
 Group:		Applications/System
-Source0:	http://carme.pld-linux.org/~cactus/snaps/poldek/%{name}-%{version}%{pre}.tar.xz
-# Source0-md5:	ab89926c28cfb6b7d72497fc37c16ac4
+Source0:	http://carme.pld-linux.org/~megabajt/snaps/poldek/%{name}-%{version}%{pre}.tar.xz
+# Source0-md5:	4b528ad356b02efdd72b81f1ecaceb83
 Source1:	%{name}.conf
 Source2:	%{name}-aliases.conf
 Patch0:		%{name}-config.patch
 Patch1:		%{name}-nodoc.patch
-Patch2:		%{name}-git.patch
 URL:		http://poldek.pld-linux.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -69,7 +68,6 @@ Python modules for poldek.
 %setup -q
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
 
 %build
 %{__autopoint}
@@ -122,14 +120,14 @@ rm -f $RPM_BUILD_ROOT%{py_sitedir}/_poldekmod.la
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post	-p /sbin/postshell
+%post	-p /usr/sbin/postshell
 -/usr/sbin/fix-info-dir -c %{_infodir}
 
-%postun	-p /sbin/postshell
+%postun	-p /usr/sbin/postshell
 -/usr/sbin/fix-info-dir -c %{_infodir}
 
-%post	libs -p /sbin/ldconfig
-%postun	libs -p /sbin/ldconfig
+%post	libs -p /usr/sbin/ldconfig
+%postun	libs -p /usr/sbin/ldconfig
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
