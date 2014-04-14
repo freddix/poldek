@@ -1,16 +1,12 @@
---- poldek-0.30-cvs20080519.22/conf/poldek.conf	2008-05-19 22:09:20.000000000 +0200
-+++ poldek-0.30-cvs20080519.22.new/conf/poldek.conf	2008-05-19 22:34:49.000000000 +0200
-@@ -127,11 +127,10 @@
+diff -aurN poldek-0.30.1.orig/conf/poldek.conf poldek-0.30.1/conf/poldek.conf
+--- poldek-0.30.1.orig/conf/poldek.conf	2014-03-26 21:48:39.868726416 +0100
++++ poldek-0.30.1/conf/poldek.conf	2014-03-26 21:49:34.610857802 +0100
+@@ -128,7 +128,7 @@
  #confirm removal = yes
  
  # Let the user select package among equivalents.
--#choose equivalents manually = no
+-#choose equivalents manually = yes
 +choose equivalents manually = yes
  
  # Prevent package listed from being upgraded if they are already installed.
--# hold = kernel* foo*.i686 th-test:* *-smp-* th-ready:bar*.x86_64
--#hold = 
-+hold = kernel*
- 
- # Ignore package list - packages fits given mask will be invisible.
- # ignore = *-smp-* foo*
+ # hold = kernel* foo*.i686 th-test:* *-smp-* th-ready:bar*.x86_64

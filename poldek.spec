@@ -1,13 +1,11 @@
-%define 	pre	rc6
-
 Summary:	RPM packages management helper tool
 Name:		poldek
-Version:	0.30
-Release:	0.%{pre}.5
+Version:	0.30.1
+Release:	1
 License:	GPL v2
 Group:		Applications/System
-Source0:	http://carme.pld-linux.org/~megabajt/snaps/poldek/%{name}-%{version}%{pre}.tar.xz
-# Source0-md5:	4b528ad356b02efdd72b81f1ecaceb83
+Source0:	http://carme.pld-linux.org/~megabajt/releases/poldek/%{name}-%{version}.tar.xz
+# Source0-md5:	e569c8454df0932df53b09cee9998927
 Source1:	%{name}.conf
 Source2:	%{name}-aliases.conf
 Patch0:		%{name}-config.patch
@@ -70,19 +68,27 @@ Python modules for poldek.
 %patch1 -p1
 
 %build
-%{__autopoint}
+%{__gettextize}
+%{__libtoolize}
 %{__aclocal} -I m4
+%{__autoheader}
 %{__autoconf}
 %{__automake}
 cd tndb
 %{__libtoolize}
-autoreconf -i
+%{__aclocal}
+%{__autoheader}
+%{__autoconf}
+%{__automake}
 cd ../trurlib
 %{__libtoolize}
-autoreconf -i
+%{__aclocal}
+%{__autoheader}
+%{__autoconf}
+%{__automake}
 cd ..
 
-CPPFLAGS="-std=gnu99"
+CPPFLAGS="%{rpmcppflags} -std=gnu99 -fgnu89-inline"
 %configure \
 	--disable-static	\
 	--enable-nls		\
@@ -104,16 +110,13 @@ install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/repos.d/freddix-source.
 install %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/aliases.conf
 
 # get rid of unneeded sources
-rm -f $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/{rh,fedora,centos,pld}-source.conf
-rm -f $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/repos.d/pld*
+%{__rm} $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/{rh,fedora,centos}-source.conf
+%{__rm} $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/repos.d/pld*
 
-# include them in %doc
-rm -rf configs
-cp -a conf configs
-rm -f configs/Makefile*
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/*.la
 
 %py_postclean
-rm -f $RPM_BUILD_ROOT%{py_sitedir}/_poldekmod.la
+%{__rm} $RPM_BUILD_ROOT%{py_sitedir}/_poldekmod.la
 
 %find_lang %{name}
 
@@ -131,7 +134,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc README* NEWS TODO configs/
+%doc README* NEWS TODO conf/*.conf
 
 %dir %{_libdir}/%{name}
 %dir %{_sysconfdir}/%{name}
@@ -170,12 +173,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libtndb.so
 %attr(755,root,root) %{_libdir}/libtrurl.so
 %attr(755,root,root) %{_libdir}/libvfile.so
-%{_libdir}/libpoclidek.la
-%{_libdir}/libpoldek.la
-%{_libdir}/libtndb.la
-%{_libdir}/libtrurl.la
-%{_libdir}/libvfile.la
 %{_includedir}/*
+%{_pkgconfigdir}/tndb.pc
+%{_pkgconfigdir}/trurlib.pc
 
 %files -n python-poldek
 %defattr(644,root,root,755)
